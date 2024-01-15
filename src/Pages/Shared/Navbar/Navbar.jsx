@@ -1,22 +1,21 @@
 import { Link } from "react-router-dom"
 import UseAuth from "../../../Hooks/UseAuth"
-
+// import {FaShoppingCart} from 'react-icons';
+import useCart from "../../../Hooks/useCart";
 const Navbar = () => {
   const {user,LogOut } = UseAuth();
+  const [cart] =useCart();
   
     const navOptions = <>
      <li><Link to='/' >Home</Link></li>
      <li><Link to='/menu' >Menu</Link></li>
      <li><Link to='/order/salad' >Order</Link></li>
-     {
-      user ?
-      <>
-      <button onClick={LogOut} className="btn btn-ghost">Sign Out</button>
-      </>
-       : 
-      <><li><Link to='/login' >Login</Link></li>
-      </>
-     }
+     <li>
+      <Link to='/'>
+      {/* <button className="btn"><FaShoppingCart/></button> */}
+      <div className="badge badge-secondary">+ {cart.length}</div></Link>
+     </li>
+     
         
          
     
@@ -55,7 +54,15 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+  {
+      user ?
+      <>
+      <li onClick={LogOut} className="btn btn-ghost">Sign Out</li>
+      </>
+       : 
+      <><li className="btn btn-neutral"><Link to='/login' >Login</Link></li>
+      </>
+     }
   </div>
 </div>
     </>
